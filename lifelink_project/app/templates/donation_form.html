@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+  <h2>{{ 'Edit' if donation else 'Add' }} Donation</h2>
+  <form method="POST">
+    <div class="mb-3"><input class="form-control" name="date" type="date" value="{{ donation.date if donation else '' }}" required></div>
+    <div class="mb-3"><input class="form-control" name="status" placeholder="Status" value="{{ donation.status if donation else '' }}" required></div>
+    <div class="mb-3">
+      <select class="form-control" name="donor_id" required>
+        <option value="">Select Donor</option>
+        {% for donor in donors %}
+        <option value="{{ donor.donor_id }}" {% if donation and donation.donor_id == donor.donor_id %}selected{% endif %}>{{ donor.first_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-3">
+      <select class="form-control" name="taker_id" required>
+        <option value="">Select Taker</option>
+        {% for taker in takers %}
+        <option value="{{ taker.taker_id }}" {% if donation and donation.taker_id == taker.taker_id %}selected{% endif %}>{{ taker.first_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-3">
+      <select class="form-control" name="organ_id" required>
+        <option value="">Select Organ</option>
+        {% for organ in organs %}
+        <option value="{{ organ.organ_id }}" {% if donation and donation.organ_id == organ.organ_id %}selected{% endif %}>{{ organ.type }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button class="btn btn-primary" type="submit">Save</button>
+    <a href="{{ url_for('donation.list_donations') }}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %} 

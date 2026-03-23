@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+  <h2>{{ 'Edit' if offer else 'Add' }} Offer</h2>
+  <form method="POST">
+    <div class="mb-3"><input class="form-control" name="date" type="date" value="{{ offer.date if offer else '' }}" required></div>
+    <div class="mb-3"><input class="form-control" name="organ_type" placeholder="Organ Type" value="{{ offer.organ_type if offer else '' }}" required></div>
+    <div class="mb-3"><input class="form-control" name="status" placeholder="Status" value="{{ offer.status if offer else '' }}" required></div>
+    <div class="mb-3">
+      <select class="form-control" name="organ_id" required>
+        <option value="">Select Organ</option>
+        {% for organ in organs %}
+        <option value="{{ organ.organ_id }}" {% if offer and offer.organ_id == organ.organ_id %}selected{% endif %}>{{ organ.type }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button class="btn btn-primary" type="submit">Save</button>
+    <a href="{{ url_for('offer.list_offers') }}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %} 

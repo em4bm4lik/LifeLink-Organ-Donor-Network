@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+  <h2>{{ 'Edit' if req else 'Add' }} Request</h2>
+  <form method="POST">
+    <div class="mb-3"><input class="form-control" name="date" type="date" value="{{ req.date if req else '' }}" required></div>
+    <div class="mb-3"><input class="form-control" name="organ_type" placeholder="Organ Type" value="{{ req.organ_type if req else '' }}" required></div>
+    <div class="mb-3"><input class="form-control" name="urgency" placeholder="Urgency" value="{{ req.urgency if req else '' }}" required></div>
+    <div class="mb-3"><input class="form-control" name="status" placeholder="Status" value="{{ req.status if req else '' }}" required></div>
+    <button class="btn btn-primary" type="submit">Save</button>
+    <a href="{{ url_for('request.list_requests') }}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %}  

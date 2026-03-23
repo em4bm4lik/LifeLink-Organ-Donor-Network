@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5 text-center">
+  <h1>Welcome to LifeLink - Organ Donation Network</h1>
+  <p class="lead">Connecting donors and takers for a better life.</p>
+  <div class="row mt-4">
+    <div class="col">
+      <a href="/register/donor" class="btn btn-success btn-lg">Donor Register</a>
+      <a href="/login/donor" class="btn btn-outline-success btn-lg">Donor Login</a>
+    </div>
+    <div class="col">
+      <a href="/register/taker" class="btn btn-primary btn-lg">Taker Register</a>
+      <a href="/login/taker" class="btn btn-outline-primary btn-lg">Taker Login</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

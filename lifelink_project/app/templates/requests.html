@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+  <h2>Requests</h2>
+  <a href="{{ url_for('request.add_request') }}" class="btn btn-success mb-3">Add Request</a>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Date</th><th>Organ Type</th><th>Urgency</th><th>Status</th><th>Taker</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for req in requests %}
+      <tr>
+        <td>{{ req.date }}</td>
+        <td>{{ req.organ_type }}</td>
+        <td>{{ req.urgency }}</td>
+        <td>{{ req.status }}</td>
+        <td>{{ req.taker.first_name if req.taker else '' }}</td>
+        <td>
+          {% if session.get('user_type') == 'taker' and req.taker_id == session.get('user_id') %}
+          <a href="{{ url_for('request.edit_request', request_id=req.request_id) }}" class="btn btn-primary btn-sm">Edit</a>
+          <a href="{{ url_for('request.delete_request', request_id=req.request_id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Delete this request?');">Delete</a>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %} 

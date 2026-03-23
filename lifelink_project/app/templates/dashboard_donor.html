@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+  <h2>Welcome, {{ donor.first_name }}!</h2>
+  <h4 class="mt-4">Your Offers</h4>
+  <a href="{{ url_for('offer.add_offer') }}" class="btn btn-success mb-2">Add Offer</a>
+  <table class="table table-bordered">
+    <thead><tr><th>Date</th><th>Organ Type</th><th>Status</th><th>Organ</th><th>Actions</th></tr></thead>
+    <tbody>
+      {% for offer in offers %}
+      <tr>
+        <td>{{ offer.date }}</td>
+        <td>{{ offer.organ_type }}</td>
+        <td>{{ offer.status }}</td>
+        <td>{{ offer.organ.type if offer.organ else '' }}</td>
+        <td>
+          <a href="{{ url_for('offer.edit_offer', offer_id=offer.offer_id) }}" class="btn btn-primary btn-sm">Edit</a>
+          <a href="{{ url_for('offer.delete_offer', offer_id=offer.offer_id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Delete this offer?');">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <h4 class="mt-4">Your Donations</h4>
+  <table class="table table-bordered">
+    <thead><tr><th>Date</th><th>Status</th><th>Taker</th><th>Organ</th></tr></thead>
+    <tbody>
+      {% for donation in donations %}
+      <tr>
+        <td>{{ donation.date }}</td>
+        <td>{{ donation.status }}</td>
+        <td>{{ donation.taker.first_name if donation.taker else '' }}</td>
+        <td>{{ donation.organ.type if donation.organ else '' }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %} 

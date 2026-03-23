@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+  <h2>Hospitals</h2>
+  <a href="{{ url_for('hospital.add_hospital') }}" class="btn btn-success mb-3">Add Hospital</a>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th><th>Address</th><th>Email</th><th>Phone</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for hospital in hospitals %}
+      <tr>
+        <td>{{ hospital.name }}</td>
+        <td>{{ hospital.address }}</td>
+        <td>{{ hospital.email }}</td>
+        <td>{{ hospital.phone_no }}</td>
+        <td>
+          <a href="{{ url_for('hospital.edit_hospital', hospital_id=hospital.hospital_id) }}" class="btn btn-primary btn-sm">Edit</a>
+          <a href="{{ url_for('hospital.delete_hospital', hospital_id=hospital.hospital_id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Delete this hospital?');">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %} 

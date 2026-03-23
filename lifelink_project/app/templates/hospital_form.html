@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+  <h2>{{ 'Edit' if hospital else 'Add' }} Hospital</h2>
+  <form method="POST">
+    <div class="mb-3"><input class="form-control" name="name" placeholder="Name" value="{{ hospital.name if hospital else '' }}" required></div>
+    <div class="mb-3"><input class="form-control" name="address" placeholder="Address" value="{{ hospital.address if hospital else '' }}" required></div>
+    <div class="mb-3"><input class="form-control" name="email" type="email" placeholder="Email" value="{{ hospital.email if hospital else '' }}" required></div>
+    <div class="mb-3"><input class="form-control" name="phone_no" placeholder="Phone Number" value="{{ hospital.phone_no if hospital else '' }}" required></div>
+    <button class="btn btn-primary" type="submit">Save</button>
+    <a href="{{ url_for('hospital.list_hospitals') }}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %} 

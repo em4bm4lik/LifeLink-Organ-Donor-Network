@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+  <h2>Match Offer & Request</h2>
+  <form method="POST">
+    <div class="mb-3">
+      <label>Select Offer:</label>
+      <select class="form-control" name="offer_id" required>
+        <option value="">Select Offer</option>
+        {% for offer in offers %}
+        <option value="{{ offer.offer_id }}">Offer #{{ offer.offer_id }} - {{ offer.organ_type }} (Donor: {{ offer.donor.first_name if offer.donor else '' }})</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-3">
+      <label>Select Request:</label>
+      <select class="form-control" name="request_id" required>
+        <option value="">Select Request</option>
+        {% for req in requests %}
+        <option value="{{ req.request_id }}">Request #{{ req.request_id }} - {{ req.organ_type }} (Taker: {{ req.taker.first_name if req.taker else '' }})</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button class="btn btn-primary" type="submit">Create Donation from Match</button>
+    <a href="{{ url_for('donation.list_donations') }}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %} 

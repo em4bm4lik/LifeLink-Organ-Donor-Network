@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+  <h2>Offers</h2>
+  <a href="{{ url_for('offer.add_offer') }}" class="btn btn-success mb-3">Add Offer</a>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Date</th><th>Organ Type</th><th>Status</th><th>Donor</th><th>Organ</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for offer in offers %}
+      <tr>
+        <td>{{ offer.date }}</td>
+        <td>{{ offer.organ_type }}</td>
+        <td>{{ offer.status }}</td>
+        <td>{{ offer.donor.first_name if offer.donor else '' }}</td>
+        <td>{{ offer.organ.type if offer.organ else '' }}</td>
+        <td>
+          {% if session.get('user_type') == 'donor' and offer.donor_id == session.get('user_id') %}
+          <a href="{{ url_for('offer.edit_offer', offer_id=offer.offer_id) }}" class="btn btn-primary btn-sm">Edit</a>
+          <a href="{{ url_for('offer.delete_offer', offer_id=offer.offer_id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Delete this offer?');">Delete</a>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %} 
